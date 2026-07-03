@@ -1,0 +1,547 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>連吟翊 (Alice) | 互動履歷與作品集</title>
+    <!-- 引入 Google 字體與 FontAwesome 圖示 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 可愛且專業的色彩變數設定 */
+        :root {
+            --primary-color: #FF7EB3; /* 糖果粉 */
+            --secondary-color: #FF758C; /* 玫瑰粉 */
+            --accent-yellow: #FFD166; /* 活力黃 */
+            --accent-mint: #06D6A0; /* 薄荷綠 */
+            --bg-light: #FFF5F7; /* 奶油粉背景 */
+            --text-dark: #2D3748; /* 專業深灰 */
+            --text-gray: #4A5568;
+            --white: #FFFFFF;
+            --border-radius: 20px; 
+            --transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+            /* 可愛愛心游標 */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23FF7EB3" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>'), auto;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: var(--primary-color); transition: var(--transition); cursor: pointer; }
+        a:hover { color: var(--accent-mint); }
+
+        .container { max-width: 950px; margin: 0 auto; padding: 0 20px; }
+
+        /* 動畫定義 */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-8deg) scale(1.1); }
+            75% { transform: rotate(8deg) scale(1.1); }
+        }
+
+        /* 頂部橫幅 (Hero Section) */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-yellow) 100%);
+            color: var(--white);
+            padding: 70px 0 50px;
+            text-align: center;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 25px rgba(255, 126, 179, 0.2);
+            position: relative;
+        }
+        
+        .avatar-placeholder {
+            width: 100px;
+            height: 100px;
+            background: var(--white);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            animation: float 4s ease-in-out infinite;
+            border: 4px dashed var(--accent-yellow);
+        }
+
+        header h1 { 
+            font-size: 2.5rem; 
+            font-weight: 900; 
+            margin-bottom: 10px; 
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.1);
+        }
+        header p.title { 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            background: rgba(255,255,255,0.25);
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 30px;
+            margin-bottom: 20px; 
+        }
+        .contact-info { 
+            display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; font-size: 0.95rem; font-weight: 500;
+        }
+        .contact-info span { 
+            background: var(--white);
+            color: var(--text-dark);
+            padding: 6px 14px;
+            border-radius: 20px;
+            display: flex; align-items: center; gap: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            transition: var(--transition);
+        }
+        .contact-info span i { color: var(--primary-color); }
+        .contact-info span:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.12); }
+
+        /* 區塊標題 */
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-align: center;
+        }
+        .section-title i { animation: float 3s ease-in-out infinite; }
+        .section-title::after, .section-title::before {
+            content: ''; height: 2px; flex: 1; background: #FFE4E8; border-radius: 2px; max-width: 100px;
+        }
+        
+        section { margin-bottom: 60px; }
+
+        /* 卡片共用樣式 */
+        .card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(255, 126, 179, 0.08);
+            transition: var(--transition);
+            margin-bottom: 20px;
+            border: 2px solid transparent;
+            position: relative;
+        }
+        .card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 15px 30px rgba(255, 126, 179, 0.15); 
+            border-color: #FFE4E8;
+        }
+
+        /* 標籤 (Chips) */
+        .chip-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .chip {
+            background: var(--bg-light);
+            color: var(--primary-color);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border: 1.5px solid var(--primary-color);
+            transition: var(--transition);
+        }
+        .chip:hover { background: var(--primary-color); color: var(--white); transform: scale(1.05); }
+
+        /* 職務內文小標籤 (Job Tech Chips) */
+        .job-chip {
+            display: inline-block;
+            background: #EDF2F7;
+            color: #4A5568;
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-right: 5px;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        /* 技能列表 */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .skill-group { text-align: center; padding: 25px 20px; }
+        .skill-group h3 { 
+            font-size: 1.1rem; 
+            margin-bottom: 15px; 
+            color: var(--text-dark); 
+            background: var(--accent-yellow);
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 15px;
+        }
+
+        /* 工作經歷 (Timeline) */
+        .timeline-item { 
+            position: relative; 
+            padding-left: 40px; 
+            margin-bottom: 35px; 
+            border-left: 3px solid #FFE4E8; 
+        }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-item::before {
+            content: '✦';
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            position: absolute;
+            left: -11px;
+            top: 0;
+            background: var(--white);
+            border-radius: 50%;
+            width: 20px; height: 20px;
+            display: flex; align-items: center; justify-content: center;
+            transition: var(--transition);
+        }
+        .timeline-item:hover::before { transform: scale(1.3) rotate(90deg); color: var(--accent-mint); }
+        
+        .timeline-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 5px; }
+        .timeline-title { font-size: 1.2rem; font-weight: 900; color: var(--text-dark); }
+        .timeline-date { font-size: 0.85rem; color: var(--white); background: var(--accent-mint); padding: 3px 10px; border-radius: 12px; font-weight: 700; }
+        .timeline-company { font-size: 1rem; color: var(--primary-color); font-weight: 700; margin-bottom: 10px; }
+        .timeline-content { color: var(--text-gray); font-size: 0.95rem; }
+        .timeline-content ul { padding-left: 20px; margin-top: 5px; }
+        .timeline-content li { margin-bottom: 6px; }
+
+        /* 作品集 Grid */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .portfolio-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 25px 20px;
+            text-align: center;
+            border: 2px solid #FFE4E8;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .portfolio-card i.main-icon {
+            font-size: 2.5rem;
+            color: var(--accent-yellow);
+            margin-bottom: 15px;
+            display: inline-block;
+            transition: var(--transition);
+        }
+        .portfolio-card:hover { 
+            border-color: var(--primary-color); 
+            transform: translateY(-8px); 
+            box-shadow: 0 12px 24px rgba(255, 126, 179, 0.15);
+            background: #FFF0F3;
+        }
+        .portfolio-card:hover i.main-icon { animation: wiggle 0.5s ease; color: var(--primary-color); }
+        
+        .portfolio-card h3 { font-size: 1.1rem; margin-bottom: 15px; font-weight: 700; color: var(--text-dark); }
+        .portfolio-card a {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 22px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(255,126,179,0.3);
+        }
+        .portfolio-card a:hover { background: var(--accent-mint); box-shadow: 0 4px 10px rgba(6, 214, 160, 0.3); }
+
+        /* Footer */
+        footer { 
+            text-align: center; 
+            padding: 30px 0; 
+            color: var(--primary-color); 
+            font-weight: 500;
+            font-size: 0.9rem;
+            background: var(--white);
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            margin-top: 40px;
+        }
+
+        /* 點擊噴射星星動畫 */
+        .click-sparkle {
+            position: absolute;
+            pointer-events: none;
+            font-size: 1.2rem;
+            animation: popOut 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            z-index: 9999;
+        }
+        @keyframes popOut {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 1; }
+            50% { transform: translate(-50%, -80%) scale(1.2) rotate(180deg); opacity: 1; }
+            100% { transform: translate(-50%, -120%) scale(0.5) rotate(360deg); opacity: 0; }
+        }
+
+        /* 手機版 RWD */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
+            .contact-info { flex-direction: column; align-items: center; gap: 10px; }
+            .timeline-header { flex-direction: column; align-items: flex-start; }
+            .timeline-date { margin-top: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <!-- 專業形象頭像區域 -->
+            <div class="avatar-placeholder">
+                <i class="fas fa-gem"></i>
+            </div>
+            <h1>連吟翊 (Alice)</h1>
+            <p class="title">✨ 資深視覺設計師 / UIUX / 多媒體互動設計 ✨</p>
+            <div class="contact-info">
+                <span><i class="fas fa-envelope"></i> acac90059@gmail.com</span>
+                <span><i class="fas fa-graduation-cap"></i> 宏國科技大學 外語系</span>
+                <span><i class="fas fa-briefcase"></i> 12 年以上專業資歷</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- 專業摘要與自傳 -->
+        <section>
+            <h2 class="section-title"><i class="fas fa-user-check"></i> 專業摘要 About Me</h2>
+            <div class="card" style="text-align: justify; font-size: 1.05rem;">
+                <p>具備 12 年以上企劃美編與專業設計背景，擅長將藝術美感與數位技術結合，打造高商業價值的視覺專案。擁有全端執行的跨領域技能，不僅精通 <strong>Photoshop、Illustrator 與 3ds Max</strong>，近期更導入 <strong>Figma 與網頁前端技術（HTML / CSS / Bootstrap）</strong> 強化 UI/UX 介面設計能力。<br><br>熟練運用 ChatGPT 等 AI 工具優化工作流程，並具備優良的跨領域學習力（如取得照服員結業資格）。期待能將豐富的專案控管經驗與創新設計思維，為團隊創造具備獨特視覺與極致使用者體驗的成功產品。</p>
+            </div>
+        </section>
+
+        <!-- 核心技能與認證 -->
+        <section>
+            <h2 class="section-title"><i class="fas fa-bolt"></i> 專業技能與認證 Skills</h2>
+            <div class="skills-grid">
+                <div class="card skill-group">
+                    <h3>UI/UX 與前端網頁</h3>
+                    <div class="chip-container" style="justify-content: center;">
+                        <span class="chip">Figma</span>
+                        <span class="chip">HTML/CSS</span>
+                        <span class="chip">Bootstrap</span>
+                        <span class="chip">WordPress</span>
+                        <span class="chip">Weebly/Wix</span>
+                    </div>
+                </div>
+                <div class="card skill-group">
+                    <h3>平面與 3D 視覺設計</h3>
+                    <div class="chip-container" style="justify-content: center;">
+                        <span class="chip">Photoshop</span>
+                        <span class="chip">Illustrator</span>
+                        <span class="chip">3ds Max</span>
+                        <span class="chip">AutoCAD 2D</span>
+                        <span class="chip">V-Ray</span>
+                    </div>
+                </div>
+                <div class="card skill-group">
+                    <h3>專業證照與多媒體</h3>
+                    <div class="chip-container" style="justify-content: center;">
+                        <span class="chip" style="background: var(--accent-mint); color: var(--white); border:none;">Google AI/Ads/GA 認證</span>
+                        <span class="chip" style="background: var(--accent-yellow); color: var(--text-dark); border:none;">勞動部照顧服務員結業</span>
+                        <span class="chip">Premiere</span>
+                        <span class="chip">CapCut</span>
+                        <span class="chip">AI 輔助設計</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 工作經歷 -->
+        <section>
+            <h2 class="section-title"><i class="fas fa-route"></i> 職涯歷程 Experience</h2>
+            <div class="card">
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div class="timeline-title">3D研發設計師 / 產品美學專員</div>
+                        <div class="timeline-date">2019/10 - 2025/11 (及 2006-2012)</div>
+                    </div>
+                    <div class="timeline-company">三鑫門</div>
+                    <div class="timeline-content">
+                        <ul>
+                            <li><strong>得獎肯定：</strong>主導開發創新系列門片，將傳統塑鋼門轉化為「童趣故事」、「歐式雕紋」等藝術建材，榮獲「台灣設計獎」肯定。</li>
+                            <li><strong>視覺突破：</strong>運用精確的光影算圖，達成平面印刷卻具備深厚立體質感的視覺突破（如金屬浮雕、深海鯨魚系列）。</li>
+                            <li><strong>專案控管：</strong>負責從設計發想、精密印刷檔案製作到工廠落地的全流程品質控管。執行門片包裝設計、3D 空間擬真合成圖及產品型錄 (Catalog) 企劃。</li>
+                        </ul>
+                        <div style="margin-top: 8px;">
+                            <span class="job-chip">3ds Max</span><span class="job-chip">V-Ray</span><span class="job-chip">Illustrator</span><span class="job-chip">Photoshop</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div class="timeline-title">工業設計師</div>
+                        <div class="timeline-date">2018/11 - 2019/06</div>
+                    </div>
+                    <div class="timeline-company">羅代有限公司</div>
+                    <div class="timeline-content">
+                        <ul>
+                            <li>負責鋼筆、原子筆、鋼珠筆 3D 外觀設計 (ODM) 與產品包裝視覺設計。</li>
+                            <li>負責阿里巴巴 B2B 電商網頁管理與行銷，並獨立處理國外客戶設計與詢價之書信往來 (OEM)。</li>
+                        </ul>
+                        <div style="margin-top: 8px;">
+                            <span class="job-chip">3D Modeling</span><span class="job-chip">B2B E-commerce</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div class="timeline-title">平面設計 / 美編</div>
+                        <div class="timeline-date">2017/05 - 2018/08</div>
+                    </div>
+                    <div class="timeline-company">劉哲章辦公室</div>
+                    <div class="timeline-content">
+                        <ul>
+                            <li><strong>品牌視覺：</strong>負責攝影美編、製作 LINE 貼圖、名片發印、制服設計，並獨立管理 FB 與 LINE 官方帳號社群視覺。</li>
+                            <li><strong>活動企劃：</strong>企劃並舉辦新店路跑、捐血活動、MOMO 親子開學日等大型地方活動，協助深耕品牌形象。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div class="timeline-title">美編 / 廣告設計</div>
+                        <div class="timeline-date">2015/09 - 2017/05</div>
+                    </div>
+                    <div class="timeline-company">振晶店</div>
+                    <div class="timeline-content">
+                        <ul>
+                            <li>主導振晶店寶石官網與 MOMO 網頁專賣店之平台管理與視覺維護。</li>
+                            <li>負責各檔期行銷 Banner 設計與活動 DM 夾報視覺製作，並協助倉管出貨流程。</li>
+                        </ul>
+                        <div style="margin-top: 8px;">
+                            <span class="job-chip">E-commerce Design</span><span class="job-chip">Banner/DM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div class="timeline-title">美編企劃</div>
+                        <div class="timeline-date">2013/01 - 2015/09</div>
+                    </div>
+                    <div class="timeline-company">林口社區大學</div>
+                    <div class="timeline-content">
+                        <ul>
+                            <li><strong>公部門專案：</strong>管理百餘位講師規劃課程。與政府合作社區營造案（在地子弟戲文化節、生態調查），規劃林口腳踏車路線圖並完成視覺發印。</li>
+                            <li><strong>活動宣傳：</strong>企劃年度成果展，設計文宣 DM 並與廠商協調舞台動線，成功提升課程招生率。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div class="timeline-title">設計 / 建築師</div>
+                        <div class="timeline-date">2011/01 - 2012/12</div>
+                    </div>
+                    <div class="timeline-company">宏晟精密有限公司</div>
+                    <div class="timeline-content">
+                        <ul>
+                            <li><strong>效能優化：</strong>參與內湖典華宴會廳與台中漢來飯店室內隔音牆設計與監工，優化流程使工程<strong>提前 20%</strong> 完工。</li>
+                            <li><strong>專利研發：</strong>負責 AutoCAD 2D 設計圖面與改良製造，產品通過 SGS 認證可<strong>減少 80% 噪音</strong>，並成功取得專利。</li>
+                        </ul>
+                        <div style="margin-top: 8px;">
+                            <span class="job-chip">AutoCAD 2D</span><span class="job-chip">Project Management</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 作品集 -->
+        <section>
+            <h2 class="section-title"><i class="fas fa-layer-group"></i> 專案作品集 Portfolio</h2>
+            
+            <h3 style="margin-bottom: 20px; color: var(--accent-mint); text-align: center; font-weight: 900;">網頁前端與互動開發</h3>
+            <div class="portfolio-grid" style="margin-bottom: 35px;">
+                <div class="portfolio-card">
+                    <i class="fas fa-code main-icon"></i>
+                    <h3>Child 前端網頁</h3>
+                    <a href="https://axax90059-art.github.io/child/" target="_blank">點擊前往 <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                <div class="portfolio-card">
+                    <i class="fas fa-gamepad main-icon"></i>
+                    <h3>ALICE 互動遊戲</h3>
+                    <a href="https://axax90059-art.github.io/ALICELIANgame2/" target="_blank">點擊前往 <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                <div class="portfolio-card">
+                    <i class="fas fa-laptop-code main-icon"></i>
+                    <h3>個人 Weebly 網站</h3>
+                    <a href="#" target="_blank">點擊前往 <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+
+            <h3 style="margin-bottom: 20px; color: var(--primary-color); text-align: center; font-weight: 900;">3D 設計、平面與多媒體影音</h3>
+            <div class="portfolio-grid">
+                <div class="portfolio-card">
+                    <i class="fas fa-cube main-icon"></i>
+                    <h3>3D 建模與視覺展示</h3>
+                    <a href="#" target="_blank">瀏覽作品集 <i class="fas fa-folder-open"></i></a>
+                </div>
+                <div class="portfolio-card">
+                    <i class="fas fa-book-open main-icon"></i>
+                    <h3>三鑫門產品型錄</h3>
+                    <a href="#" target="_blank">翻閱 PDF <i class="fas fa-file-pdf"></i></a>
+                </div>
+                <div class="portfolio-card">
+                    <i class="fas fa-video main-icon"></i>
+                    <h3>動畫與影音剪輯</h3>
+                    <a href="https://www.youtube.com/watch?v=4ncKAw0E42k" target="_blank">播放代表作 <i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 25px; font-size: 0.9rem; color: var(--text-gray); font-weight: 500;">
+                * 完整平面與影音專案備於面試時，或透過雲端連結提供詳細展示。
+            </p>
+        </section>
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Designed & Coded with ❤️ by Alice. &copy; 2026 連吟翊</p>
+            <p style="font-size: 0.8rem; margin-top: 5px; color: var(--text-gray);">✨ 試著在網頁空白處點擊看看互動彩蛋！ ✨</p>
+        </div>
+    </footer>
+
+    <!-- 點擊特效 JavaScript -->
+    <script>
+        document.addEventListener('click', function(e) {
+            // 隨機選一個可愛且符合設計師身份的符號
+            const emojis = ['✨', '💖', '🎨', '💻', '🚀', '🐳', '🌟'];
+            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            // 創建特效元素
+            const sparkle = document.createElement('div');
+            sparkle.className = 'click-sparkle';
+            sparkle.innerText = randomEmoji;
+            
+            // 設定點擊位置
+            sparkle.style.left = e.pageX + 'px';
+            sparkle.style.top = e.pageY + 'px';
+            
+            document.body.appendChild(sparkle);
+            
+            // 動畫結束後移除元素 (與 CSS animation 配合)
+            setTimeout(() => {
+                sparkle.remove();
+            }, 800);
+        });
+    </script>
+</body>
+</html>
